@@ -28,6 +28,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
+import com.google.protobuf.util.JsonFormat;
+
 import com.akdeniz.googleplaycrawler.DownloadData;
 import com.akdeniz.googleplaycrawler.GooglePlay.AppDetails;
 import com.akdeniz.googleplaycrawler.GooglePlay.BulkDetailsEntry;
@@ -94,7 +96,8 @@ class Play implements Variables {
 	public static void details(String name) {
 		GooglePlayAPI api = createConnection();
 		try {
-			System.out.println(api.details(name));
+			DetailsResponse response = api.details(name);
+			System.out.println(JsonFormat.printer().print(response));
 		}
 		catch (Exception e) {
 			Router.fail("play.exception", e.getMessage());
